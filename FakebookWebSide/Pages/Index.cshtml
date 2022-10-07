@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="content">
+    <div class="flex-div">
+        <div class="name-content">
+            <h1 class="logo">Fakebook</h1>
+            <p>Connect with friends and the world around you on Fakebook.</p>
+        </div>
+        <form method="post">
+            <input type="text" placeholder="Email or Phone Number" required name="userName"   />
+            <input type="password" placeholder="Password" required name="pass">
+            <button class="login">Log In</button>
+            <a href="#">Forgot Password ?</a>
+            <hr>
+            <button class="create-account">Create New Account</button>
+        </form>
+    </div>
+</div>
